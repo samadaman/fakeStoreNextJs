@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Fake Store Next.js Project
+This project demonstrates how to build a Next.js application that fetches and displays data from a fake store API. The application uses React's `useState` and `useEffect` hooks to manage state and handle side effects for data fetching.
+## Features
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ - Fetch Data: Retrieves product data from a fake store API.
+ - Display Products: Shows a list of products with details.
+ - Responsive Design: Ensures compatibility with various devices.
+## Technologies Used
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ - Next.js: A React framework for server-side rendering and static site generation.
+ - Axios: A promise-based HTTP client for making requests.
+ - CSS Modules/Tailwind CSS: For styling (depending on your setup).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Code Overview
+    • The main components of this project include:
+    • Next.js: A React framework for server-side rendering and static site generation.
+    • Axios: A promise-based HTTP client for making requests.
+    • CSS Modules/Tailwind CSS: For styling (depending on your setup).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Usage
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+| **NextJs** | & | **Tailwind/CSS**                
+| :-------- | :------- | :------------------------- |
+ 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Example Code
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Here’s a basic example of how to fetch and display data using useState and useEffect in src/app/page.js:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+    `"use client";
+    import { useEffect, useState } from 'react';
+    import { fetchProducts } from '../app/component/api';
+    import '../app/style/api.css'; // Import the CSS file
+    
+    const HomePage = () => {
+      const [products, setProducts] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+    
+      useEffect(() => {
+        const getProducts = async () => {
+          try {
+            const data = await fetchProducts();
+            setProducts(data);
+          } catch (err) {
+            setError('Failed to fetch products');
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+       getProducts();
+      }, []);
+    
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>{error}</p>;
+    
+      return (
+        <div className="container">
+          <h1>Products</h1>
+          <div className="product-grid">
+            {Array.isArray(products) && products.length > 0 ? (
+              products.map((product) => (
+                <div className="product-card" key={product.id}>
+                  <img src={product.image} alt={product.title} />
+                  <div className="product-card-content">
+                    <h2>{product.title}</h2>
+                    <p>{product.description}</p>
+                    <p className="price">${product.price}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No products available</p>
+            )}
+          </div>
+        </div>
+      );
+    };
+    
+    export default HomePage;`
+
+
+
+## Screenshots
+
+![App Screenshot](https://cdn.dribbble.com/userupload/16059995/file/original-adac38667fc08308eff1fdda9afa9d5f.png?resize=1024x576)
+
+
+## Contact
+
+For any questions or feedback, please reach out to:
+
+- Name: Samad Aman
+- Email: amansamad2500@example.com
+

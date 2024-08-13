@@ -81,7 +81,7 @@ Here’s a basic example of how to fetch and display data using useState and use
 
 ## Screenshots
 
-![App Screenshot](https://cdn.dribbble.com/userupload/16059995/file/original-adac38667fc08308eff1fdda9afa9d5f.png?resize=1024x576)
+![App Screenshot](https://cdn.dribbble.com/userupload/16063480/file/original-9fe902357aa5c6679bf1ef8df306ef3b.png?resize=1024x576&vertical=center)
 
 
 ## Contact

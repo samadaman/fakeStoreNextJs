@@ -33,39 +33,31 @@ This project demonstrates how to build a Next.js application that fetches and di
 Here’s a basic example of how to fetch and display data using useState and useEffect in src/app/page.js:
 
 
-    `"use client";
-    import { useEffect, useState } from 'react';
-    import { fetchProducts } from '../app/component/api';
+        // src/app/page.js
+    import React from 'react';
     import '../app/style/api.css'; // Import the CSS file
     
-    const HomePage = () => {
-      const [products, setProducts] = useState([]);
-      const [loading, setLoading] = useState(true);
-      const [error, setError] = useState(null);
+    async function fetchProducts() {
+      try {
+        const res = await fetch('https://fakestoreapi.com/products');
+        if (!res.ok) {
+          throw new Error('Failed to fetch');
+        }
+        return res.json();
+      } catch (error) {
+        console.error(error);
+        return []; // Return an empty array if there's an error
+      }
+    }
     
-      useEffect(() => {
-        const getProducts = async () => {
-          try {
-            const data = await fetchProducts();
-            setProducts(data);
-          } catch (err) {
-            setError('Failed to fetch products');
-          } finally {
-            setLoading(false);
-          }
-        };
-    
-       getProducts();
-      }, []);
-    
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>{error}</p>;
+    export default async function HomePage() {
+      const products = await fetchProducts();
     
       return (
-        <div className="container">
+        <main>
           <h1>Products</h1>
           <div className="product-grid">
-            {Array.isArray(products) && products.length > 0 ? (
+            {products.length > 0 ? (
               products.map((product) => (
                 <div className="product-card" key={product.id}>
                   <img src={product.image} alt={product.title} />
@@ -74,17 +66,16 @@ Here’s a basic example of how to fetch and display data using useState and use
                     <p>{product.description}</p>
                     <p className="price">${product.price}</p>
                   </div>
+                  <button class="text-white bg-black rounded-md p-3">Buy Now</button>
                 </div>
               ))
             ) : (
               <p>No products available</p>
             )}
           </div>
-        </div>
+        </main>
       );
-    };
-    
-    export default HomePage;`
+    }
 
 
 

@@ -35,3 +35,8 @@ For any questions or feedback, please reach out to:
 - Name: Samad Aman
 - Email: amansamad2500@example.com
 
+
+## Screenshots
+
+![App Screenshot](https://cdn.dribbble.com/userupload/16059995/file/original-adac38667fc08308eff1fdda9afa9d5f.png?resize=1024x576)
+

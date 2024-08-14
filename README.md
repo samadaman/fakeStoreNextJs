@@ -1,5 +1,5 @@
 
-# Fake Store Next.js 
+# Fake Store Next.js Project
 This project demonstrates how to build a Next.js application that fetches and displays data from a fake store API. The application uses React's `useState` and `useEffect` hooks to manage state and handle side effects for data fetching.
 ## Features
 

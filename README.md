@@ -33,7 +33,7 @@ This project demonstrates how to build a Next.js application that fetches and di
 Here’s a basic example of how to fetch and display data using useState and useEffect in src/app/page.js:
 
 
-        // src/app/page.js
+        
     import React from 'react';
     import '../app/style/api.css'; // Import the CSS file
     

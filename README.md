@@ -35,27 +35,44 @@ Here’s a basic example of how to fetch and display data using useState and use
 
         
     import React from 'react';
-    import '../app/style/api.css'; // Import the CSS file
+    import '../app/style/api.css';
     
     async function fetchProducts() {
       try {
         const res = await fetch('https://fakestoreapi.com/products');
         if (!res.ok) {
-          throw new Error('Failed to fetch');
+          throw new Error('Failed to fetch products');
         }
         return res.json();
       } catch (error) {
         console.error(error);
-        return []; // Return an empty array if there's an error
+        return [];
+      }
+    }
+    
+    async function fetchCartCount() {
+      try {
+    
+        const res = await fetch(`http://localhost:3000/api/cart`);
+        if (!res.ok) {
+          throw new Error('Failed to fetch cart count');
+        }
+        return res.json();
+      } catch (error) {
+        console.error(error);
+        return { cartCount: 0 };
       }
     }
     
     export default async function HomePage() {
       const products = await fetchProducts();
-    
+      const cartData = await fetchCartCount();
+      const cartCount = cartData.cartCount; //console the count of CART & its 0 BUT on API it's increment
+     console.log('this is cart',cartCount)
       return (
         <main>
-          <h1>Products</h1>
+          <h1>Amazon Products</h1>
+          <div className="cart-counter">Cart: {cartCount}</div>
           <div className="product-grid">
             {products.length > 0 ? (
               products.map((product) => (
@@ -63,10 +80,16 @@ Here’s a basic example of how to fetch and display data using useState and use
                   <img src={product.image} alt={product.title} />
                   <div className="product-card-content">
                     <h2>{product.title}</h2>
-                    <p>{product.description}</p>
+                    <p className="text-slate-400 font-medium">{product.category}</p>
+                    <p className="desc italic">{product.description}</p>
                     <p className="price">${product.price}</p>
                   </div>
-                  <button class="text-white bg-black rounded-md p-3">Buy Now</button>
+                  <form action="/api/cart" method="POST">
+                    <input type="hidden" name="productId" value={product.id} />
+                    <button type="submit" className="text-white bg-black rounded-md p-3">
+                      Buy Now
+                    </button>
+                  </form>
                 </div>
               ))
             ) : (
@@ -75,7 +98,9 @@ Here’s a basic example of how to fetch and display data using useState and use
           </div>
         </main>
       );
+     
     }
+
 
 
 
